@@ -1,4 +1,4 @@
-name: Build and Push Docker image
+name: Build, Push and Deploy Docker image
 
 on:
   push:
@@ -47,3 +47,20 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
           build-args: API_KEY=${{ secrets.API_KEY }}
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Container Instances
+        run: |
+          az container create \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --name 20200689 \
+            --image sachalunae/weather-wrapper:latest \
+            --cpu 1 --memory 1 \
+            --environment-variables API_KEY="${{ secrets.API_KEY }}" \
+            --dns-name-label 20200689 \
+            --location "France Central"
+            --ports 3000
