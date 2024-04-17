@@ -33,3 +33,33 @@ This will return something like this :
 
 Link to the docker image from dockerhub : https://hub.docker.com/r/sachalunae/weather-wrapper 
 
+### TP2
+
+The second lab aim was to transform the wrapper into an API and use github actions/workflows to automatise the dockerhub push process while committing on git.
+
+Accordingly, a workflow has been added in the repository (`actions.yml`) :
+- It's triggered when pushing on the main branch or making a pull request from the main branch.
+- Build hadolint, which prevents warnings and errors from being pushed
+- Lints docker file and does all the job required to build and push the docker image
+
+The `index.js` file has also been changed in order to use express.js. **IMPORTANT : the port used is the port 3000.** You can use the following docker run command to start the server via docker : 
+- For windows : `docker run -p 3000:3000 --env API_KEY=your_api_key sachalunae/weather-wrapper:latest`
+- For linux : `docker run --network host --env API_KEY=your_api_key sachalunae/weather-wrapper:latest`
+
+You can also start the server using `node index.js`. **IMPORTANT : you should use a .env file with `API_KEY = your_api_key`.** It's encapsulated in the gitignore.
+
+Once it's done, use `curl "http://localhost:3000/weather?lat=5.902585&lon=102.754175"`to fetch the wanted data. *The url isn't the exact same as wanted in the TP2, you need to add 'weather'*
+
+You'll get the following output : 
+
+![image](https://github.com/efrei-ADDA84/20200689/assets/75856103/1d8d1812-e1d5-4797-883a-197fd0ca5e94)
+
+The link to the docker image is the same : https://hub.docker.com/r/sachalunae/weather-wrapper 
+
+The main difficulty of the project to me was making sure that all the versions of each package was compatible with each-other. Hence the few failed committing attempts before having a project which completely works. There was also some hadolint warnings in the beginning that prevented the push from happening (but that's what hadolint is about!).
+
+![image](https://github.com/efrei-ADDA84/20200689/assets/75856103/23326dc6-547f-4a32-ac61-e2b7dc4c1242)
+
+
+
+
