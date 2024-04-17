@@ -62,5 +62,5 @@ jobs:
             --cpu 1 --memory 1 \
             --environment-variables API_KEY="${{ secrets.API_KEY }}" \
             --dns-name-label 20200689 \
-            --location "France Central"
+            --location "France South"
             --ports 3000
