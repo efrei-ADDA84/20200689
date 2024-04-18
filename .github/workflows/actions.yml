@@ -46,7 +46,6 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
-        with:
           context: .
           file: ./Dockerfile
           push: true
@@ -64,6 +63,9 @@ jobs:
       - name: Deploy to Azure Container Instances
         run: |
           az container create \
+            --registry-login-server ${{ secrets.REGISTRY_LOGIN_SERVER }} \
+            --registry-username ${{ secrets.REGISTRY_USERNAME }} \
+            --registry-password ${{ secrets.REGISTRY_PASSWORD }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --name 20200689 \
             --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/20200689:v1 \
