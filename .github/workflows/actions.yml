@@ -43,7 +43,7 @@ jobs:
           registry: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-          
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
@@ -53,7 +53,8 @@ jobs:
           tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/20200689:v1
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
-          build-args: API_KEY=${{ secrets.API_KEY }}
+        env: 
+          API_KEY: ${{ secrets.API_KEY }}
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -65,7 +66,7 @@ jobs:
           az container create \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --name 20200689 \
-            --image sachalunae/weather-wrapper:latest \
+            --image ${{ secrets.REGISTRY_LOGIN_SERVER }}/20200689:v1 \
             --cpu 1 --memory 1 \
             --secure-environment-variables API_KEY="${{ secrets.API_KEY }}" \
             --dns-name-label 20200689 \
