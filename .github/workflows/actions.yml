@@ -43,7 +43,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: sachalunae/weather-wrapper:latest
+          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/20200689:v1
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
           build-args: API_KEY=${{ secrets.API_KEY }}
