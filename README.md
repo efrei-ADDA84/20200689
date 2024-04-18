@@ -60,6 +60,19 @@ The main difficulty of the project to me was making sure that all the versions o
 
 ![image](https://github.com/efrei-ADDA84/20200689/assets/75856103/23326dc6-547f-4a32-ac61-e2b7dc4c1242)
 
+### TP3 
+
+The third lab aim was to put the API image to disposal on an Azure Container Register (ACR) using github actions.
+
+The workflow (`actions.yml`) has been changed accordingly, using the credential provided in GitHub secrets.
+
+**Use the API through the following link : `http://20200689.francesouth.azurecontainer.io:3000/weather?lat=5.902785&lon=102.754478` !don't forget the port and the 'weather'!**
+
+You'll get the following output : 
+![image](https://github.com/efrei-ADDA84/20200689/assets/75856103/aed87713-2918-4355-88b4-5cb36b1005f5)
+
+The main difficulty of the project was making sure that small details were okay, such as the encryption of the API key or the name of the image : 
+![image](https://github.com/efrei-ADDA84/20200689/assets/75856103/7843edbb-5f21-4c78-963a-fdfc57d8a0bd)
 
 
 
