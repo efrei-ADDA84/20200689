@@ -75,4 +75,38 @@ The main difficulty of the project was making sure that small details were okay,
 ![image](https://github.com/efrei-ADDA84/20200689/assets/75856103/7843edbb-5f21-4c78-963a-fdfc57d8a0bd)
 
 
+### TP4
 
+The fourth and final lab aim was to use terraform to create an Azure Virtual Machine with a public address in an existing network.
+
+A new folder `TP4` has been added accordingly to the repository. It contains 3 terraform files : main.tf (which also contains the providers), outputs.tf to print certain variables after the `terraform apply` and variables.tf which stores certain variables needed for the project : the name of the ressource group, the location, etc.
+
+The main.tf file, in addition to the providers (azure and tls), contains 3 data (already existing resources which we call) and 4 resources : 
+- data "azurerm_resource_group"
+- data "azurerm_virtual_network"
+- data "azurerm_subnet"
+- resource "azurerm_public_ip"
+- resource "azurerm_network_interface"
+- resource "azurerm_linux_virtual_machine"
+- resource "tls_private_key"
+
+Additionnal note : the command `terraform fmt` was used to unsure a correct formatting of all files.
+
+#### Running everything : 
+Use `cd TP4` to access the terraform files. Then `terraform init` and `terraform apply` which will create in the azure ressource group : 
+- A virtual machine
+- A disk
+- A network interface
+- A public IP address
+
+![image](image-1.png)
+
+![image](image-2.png)
+
+You can verify the good functionning of everything using the command `ssh -i id_rsa devops@{PUBLIC_ADDRESS_IP} cat /etc/os-release` **IMPORTANT : make sure to replace "PUBLIC_ADDRESS_IP" with the address that the console returns after the terraform apply, unless you have the correct environment variables.**
+
+![image](image.png)
+
+#### Difficulties faced : 
+
+The main difficulty to me was starting the lab, I wasn't sure of the steps I had to do and I didn't want to cause any damage since I didn't know my exact permissions. Afterwards, I had small issues with understanding what to call data and what to call resource on my main. Once that was sorted, the lab was easier.
